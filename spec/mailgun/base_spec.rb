@@ -4,33 +4,26 @@ describe Mailgun::Base do
 
   it "should raise an error if the api_key has not been set" do
     expect do
-      Mailgun()
+      Mailgun::Base.new()
     end.to raise_error ArgumentError
   end
 
   it "can be called directly if the api_key has been set via Mailgun.configure" do
     Mailgun.config { |c| c.api_key = "some-junk-string" }
     expect do
-      Mailgun()
+      Mailgun::Base.new()
     end.to_not raise_error ArgumentError
   end
 
   it "can be instanced with the api_key as a param" do
     expect do
-      Mailgun({:api_key => "some-junk-string"})
+      Mailgun::Base.new({:api_key => "some-junk-string"})
     end.to_not raise_error ArgumentError
-  end
-
-  describe "Mailgun.new" do
-    it "Mailgun() method should return a new Mailgun object" do
-      mailgun = Mailgun({:api_key => "some-junk-string"})
-      mailgun.should be_kind_of(Mailgun::Base)
-    end
   end
 
   describe "resources" do
     before :each do
-      @mailgun = Mailgun({:api_key => "some-junk-string"})
+      @mailgun = Mailgun::Base.new({:api_key => "some-junk-string"})
     end
 
     it "Mailgun#mailboxes should return an instance of Mailgun::Mailbox" do
@@ -43,10 +36,9 @@ describe Mailgun::Base do
   end
 
 
-  
   describe "internal helper methods" do
     before :each do
-      @mailgun = Mailgun({:api_key => "some-junk-string"})
+      @mailgun = Mailgun::Base.new({:api_key => "some-junk-string"})
     end
 
     describe "Mailgun#base_url" do
@@ -63,7 +55,6 @@ describe Mailgun::Base do
         Mailgun.submit :test_method, :arg1=>"val1"
       end
     end
-    
   end
 
   describe "configuration" do

@@ -3,7 +3,7 @@ require "spec_helper"
 describe Mailgun::Route do
 
   before :each do
-    @mailgun = Mailgun({:api_key => "api-key"})		# used to get the default values
+    @mailgun = Mailgun.new({:api_key => "api-key"})		# used to get the default values
     @sample_route_id = "a45cd"
   end
 
