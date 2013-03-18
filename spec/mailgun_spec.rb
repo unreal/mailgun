@@ -7,6 +7,15 @@ describe Mailgun do
     end
   end
 
+  describe "configuration" do
+    it "persists" do
+      mailgun = Mailgun.new({:api_key => "foo", :api_version => 1})
+
+      Mailgun.api_key.should eql "foo"
+      Mailgun.api_version.should eql 1
+    end
+  end
+
   describe "Mailgun()" do
     it "still works" do
       expect(Mailgun(:api_key => "foo")).to be_a(Mailgun::Base)
